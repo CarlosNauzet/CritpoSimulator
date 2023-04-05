@@ -11,7 +11,7 @@ class Purchase:
             origin=currency_origin,
             dest=currency_dest
         )
-        print(exchange_rate)
+        return currency_origin_qty * exchange_rate['rate']
 
 
 class CoinApi:
