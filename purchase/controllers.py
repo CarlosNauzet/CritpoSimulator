@@ -5,11 +5,11 @@ router = Blueprint('purchase', __name__, template_folder='views')
 
 @router.route('/', methods=['GET'])
 def index():
-    return render_template('form.html')
+    return render_template('purchase.html')
 
 
-@router.route('/', methods=['POST'])
-def create_purchase():
+@router.route('/calculate', methods=['POST'])
+def calculate_purchase():
     purchase = Purchase()
     data = request.form
     returned_qty = purchase.calculate(
@@ -17,4 +17,4 @@ def create_purchase():
         currency_dest=data['to'],
         currency_origin_qty=float(data['from_qty'])
     )
-    return f"You will buy {returned_qty} {data['to']}"
+    return render_template('calculated.html', qty=returned_qty)

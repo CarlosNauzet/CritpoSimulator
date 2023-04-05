@@ -11,8 +11,10 @@
       <div>From<input type="text" name="from" /></div>
       <div>To<input type="text" name="to" /></div>
       <div>Qty<input type="number" name="from_qty" /></div>
-      <div>To Qty<input type="number" name="to_qty" /></div>
-      <div><button type="submit">Calcular</button></div>
+      <div>
+        To Qty<input type="number" readonly name="to_qty" value="{{qty}}" />
+      </div>
+      <div><button type="submit" name="purchase">Comprar</button></div>
     </form>
   </body>
 </html>
