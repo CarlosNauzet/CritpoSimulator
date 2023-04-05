@@ -8,11 +8,27 @@
   </head>
   <body>
     <form action="/purchase" method="post">
-      <div>From<input type="text" name="from" /></div>
-      <div>To<input type="text" name="to" /></div>
-      <div>Qty<input type="number" name="from_qty" /></div>
       <div>
-        To Qty<input type="number" readonly name="to_qty" value="{{qty}}" />
+        From<input type="text" readonly name="from" value="{{data.from}}" />
+      </div>
+      <div>
+        To<input type="text" readonly name="to" value="{{data['to']}}" />
+      </div>
+      <div>
+        Qty<input
+          type="number"
+          readonly
+          name="from_qty"
+          value="{{data.from_qty}}"
+        />
+      </div>
+      <div>
+        To Qty<input
+          type="number"
+          readonly
+          name="to_qty"
+          value="{{data.qty}}"
+        />
       </div>
       <div><button type="submit" name="purchase">Comprar</button></div>
     </form>

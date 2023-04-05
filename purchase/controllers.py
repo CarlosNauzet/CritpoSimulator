@@ -17,4 +17,10 @@ def calculate_purchase():
         currency_dest=data['to'],
         currency_origin_qty=float(data['from_qty'])
     )
-    return render_template('calculated.html', qty=returned_qty)
+    form_data = {
+        'qty':returned_qty,
+        'from': data['from'],
+        'to' : data['to'],
+        'from_qty' : data['from_qty']
+    }
+    return render_template('calculated.html', data=form_data)
