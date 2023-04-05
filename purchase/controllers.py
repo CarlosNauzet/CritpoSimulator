@@ -12,10 +12,9 @@ def index():
 def create_purchase():
     purchase = Purchase()
     data = request.form
-    purchase.calculate(
+    returned_qty = purchase.calculate(
         currency_origin=data['from'],
         currency_dest=data['to'],
-        currency_origin_qty=data['from_qty']
+        currency_origin_qty=float(data['from_qty'])
     )
-
-    return
+    return f"You will buy {returned_qty} {data['to']}"
