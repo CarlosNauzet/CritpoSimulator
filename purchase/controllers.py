@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-
+from purchase.models import Purchase
 router = Blueprint('purchase', __name__, template_folder='views')
 
 
@@ -10,5 +10,12 @@ def index():
 
 @router.route('/', methods=['POST'])
 def create_purchase():
-    print(request.form['to'])
+    purchase = Purchase()
+    data = request.form
+    purchase.calculate(
+        currency_origin=data['from'],
+        currency_dest=data['to'],
+        currency_origin_qty=data['from_qty']
+    )
+
     return
