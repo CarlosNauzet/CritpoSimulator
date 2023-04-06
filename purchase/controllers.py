@@ -26,8 +26,8 @@ def calculate_purchase():
         'to': data['to'],
         'from_qty': data['from_qty'],
         'pu': purchase.get_price_unit(),
-        'fecha': '',
-        'hora': ''
+        'date': '',
+        'time': ''
     }
 
     return render_template('calculated.html', data=form_data)
@@ -41,8 +41,8 @@ def do_purchase():
         currency_dest=data['to'],
         currency_origin_qty=float(data['from_qty']),
         currency_dest_qty=data['qty'],
-        hora=data['hora'],
-        fecha=data['fecha']
+        time=data['time'],
+        date=data['date']
     )
     purchase.save()
 

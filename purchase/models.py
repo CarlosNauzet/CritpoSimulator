@@ -11,13 +11,15 @@ class Purchase:
         currency_dest,
         currency_origin_qty,
         currency_dest_qty=0,
-        fecha='',
-        hora=''
+        date='',
+        time=''
     ) -> None:
         self.currency_origin = currency_origin
         self.currency_dest = currency_dest
         self.currency_origin_qty = currency_origin_qty
         self.currency_dest_qty = currency_dest_qty
+        self.date = date
+        self.time = time
         # Add timestamp attribute
 
     def calculate(self):
