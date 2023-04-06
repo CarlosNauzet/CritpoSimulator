@@ -5,17 +5,25 @@ API_KEY = "F8DD52B3-53AC-4AE0-818B-E2C62A964EE3"
 
 class Purchase:
 
-    def __init__(self):
-        self.exchange_rate = 0
+    def __init__(self, currency_origin, currency_dest, currency_origin_qty) -> None:
+        self.currency_origin = currency_origin
+        self.currency_dest = currency_dest
+        self.currency_origin_qty = currency_origin_qty
+        self.currency_dest_qty = 0
 
-    def calculate(self, currency_origin, currency_dest, currency_origin_qty):
+    def calculate(self):
         coin_api = CoinApi()
         exchange = coin_api.get_exchange_rate(
-            origin=currency_origin,
-            dest=currency_dest
+            origin=self.currency_origin,
+            dest=self.currency_dest
         )
-        self.exchange_rate = exchange['rate']
-        return currency_origin_qty * self.exchange_rate
+        self.currency_dest_qty = self.currency_origin_qty * exchange['rate']
+
+    def get_price_unit(self):
+        return self.currency_origin_qty / self.currency_dest_qty
+
+
+        
 
 
 class CoinApi:

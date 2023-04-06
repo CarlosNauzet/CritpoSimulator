@@ -12,18 +12,20 @@ def index():
 def calculate_purchase():
     data = request.form
 
-    purchase = Purchase()
-    returned_qty = purchase.calculate(
+    purchase = Purchase(
         currency_origin=data['from'],
         currency_dest=data['to'],
         currency_origin_qty=float(data['from_qty'])
     )
 
+    purchase.calculate()
+
     form_data = {
-        'qty':returned_qty,
+        'qty':  purchase.currency_dest_qty,
         'from': data['from'],
-        'to' : data['to'],
-        'from_qty' : data['from_qty'],
-        'pu': purchase.exchange_rate
+        'to': data['to'],
+        'from_qty': data['from_qty'],
+        'pu': purchase.get_price_unit()
     }
+
     return render_template('calculated.html', data=form_data)
