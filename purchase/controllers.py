@@ -25,7 +25,25 @@ def calculate_purchase():
         'from': data['from'],
         'to': data['to'],
         'from_qty': data['from_qty'],
-        'pu': purchase.get_price_unit()
+        'pu': purchase.get_price_unit(),
+        'fecha': '',
+        'hora': ''
     }
 
     return render_template('calculated.html', data=form_data)
+
+
+@router.route('/', methods=['POST'])
+def do_purchase():
+    data = request.form
+    purchase = Purchase(
+        currency_origin=data['from'],
+        currency_dest=data['to'],
+        currency_origin_qty=float(data['from_qty']),
+        currency_dest_qty=data['qty'],
+        hora=data['hora'],
+        fecha=data['fecha']
+    )
+    purchase.save()
+
+    

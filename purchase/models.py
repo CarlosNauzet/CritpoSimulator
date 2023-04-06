@@ -5,11 +5,20 @@ API_KEY = "F8DD52B3-53AC-4AE0-818B-E2C62A964EE3"
 
 class Purchase:
 
-    def __init__(self, currency_origin, currency_dest, currency_origin_qty) -> None:
+    def __init__(
+        self,
+        currency_origin,
+        currency_dest,
+        currency_origin_qty,
+        currency_dest_qty=0,
+        fecha='',
+        hora=''
+    ) -> None:
         self.currency_origin = currency_origin
         self.currency_dest = currency_dest
         self.currency_origin_qty = currency_origin_qty
-        self.currency_dest_qty = 0
+        self.currency_dest_qty = currency_dest_qty
+        # Add timestamp attribute
 
     def calculate(self):
         coin_api = CoinApi()
@@ -22,8 +31,8 @@ class Purchase:
     def get_price_unit(self):
         return self.currency_origin_qty / self.currency_dest_qty
 
-
-        
+    def save(self):
+        ...
 
 
 class CoinApi:
