@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from purchase.models import Purchase
+from purchase.models import Purchase, CalculatePurchase
 router = Blueprint('purchase', __name__, template_folder='views')
 
 
@@ -12,22 +12,20 @@ def index():
 def calculate_purchase():
     data = request.form
 
-    purchase = Purchase(
+    purchase_calculator = CalculatePurchase(
         currency_origin=data['from'],
         currency_dest=data['to'],
         currency_origin_qty=float(data['from_qty'])
     )
 
-    purchase.calculate()
+    purchase_calculator.calculate()
 
     form_data = {
-        'qty':  purchase.currency_dest_qty,
+        'qty':  purchase_calculator.currency_dest_qty,
         'from': data['from'],
         'to': data['to'],
         'from_qty': data['from_qty'],
-        'pu': purchase.get_price_unit(),
-        'date': '',
-        'time': ''
+        'pu': purchase_calculator.get_price_unit()
     }
 
     return render_template('calculated.html', data=form_data)
@@ -40,10 +38,9 @@ def do_purchase():
         currency_origin=data['from'],
         currency_dest=data['to'],
         currency_origin_qty=float(data['from_qty']),
-        currency_dest_qty=data['qty'],
-        time=data['time'],
-        date=data['date']
+        currency_dest_qty=float(data['to_qty']),
+        price_unit=float(data['pu'])
     )
     purchase.save()
 
-    
+    return "Compra realizada"

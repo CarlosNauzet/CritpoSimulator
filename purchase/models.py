@@ -1,26 +1,23 @@
+import datetime
 import requests
+from db import DBManager
+
 
 API_KEY = "F8DD52B3-53AC-4AE0-818B-E2C62A964EE3"
 
 
-class Purchase:
+class CalculatePurchase:
 
     def __init__(
         self,
         currency_origin,
         currency_dest,
         currency_origin_qty,
-        currency_dest_qty=0,
-        date='',
-        time=''
     ) -> None:
         self.currency_origin = currency_origin
         self.currency_dest = currency_dest
         self.currency_origin_qty = currency_origin_qty
-        self.currency_dest_qty = currency_dest_qty
-        self.date = date
-        self.time = time
-        # Add timestamp attribute
+        self.currency_dest_qty = 0
 
     def calculate(self):
         coin_api = CoinApi()
@@ -33,10 +30,43 @@ class Purchase:
     def get_price_unit(self):
         return self.currency_origin_qty / self.currency_dest_qty
 
+
+class Purchase:
+    def __init__(
+        self,
+        currency_origin,
+        currency_dest,
+        currency_origin_qty,
+        currency_dest_qty,
+        price_unit
+    ) -> None:
+        self.currency_origin = currency_origin
+        self.currency_dest = currency_dest
+        self.currency_origin_qty = currency_origin_qty
+        self.currency_dest_qty = currency_dest_qty
+        self.price_unit = price_unit
+
     def save(self):
-        # call DB MANAGER 
-        # db_manager.insert_query(self.currency_origin,self.currency_dest, sef.date ....)
-        ...
+        now = datetime.datetime.now()
+        self.date = now.strftime('%d/%m/%Y')
+        self.time = now.strftime('%H:%M:%S')
+
+        query = """
+            INSERT INTO transactions (date, time, _from, from_qty, _to, qty, pu) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """
+        data = (
+            self.date,
+            self.time,
+            self.currency_origin,
+            self.currency_origin_qty,
+            self.currency_dest,
+            self.currency_dest_qty,
+            self.price_unit
+        )
+
+        db_manager = DBManager()
+        db_manager.insert_query(query, data)
 
 
 class CoinApi:

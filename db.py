@@ -1,5 +1,8 @@
 import sqlite3
 import os
+from flask_wtf import FlaskForm
+from wtforms import DateField, DecimalField, HiddenField, StringField, SubmitField
+
 
 
 class DBManager:
@@ -36,8 +39,8 @@ class DBManager:
         
         return self.realtransactions
 
-    def insert_query(self, query):
-        conexion = sqlite3.connect(self.path) # creamos al BDD
-        cursor = conexion.cursor() # genremos el cursor
-        cursor.execute(query) # no es fetch, execute el query del INSERT id, date, etc... (buscar como se hace un insert)
+    def insert_query(self, query, data):
+        conexion = sqlite3.connect(self.path) 
+        cursor = conexion.cursor() 
+        cursor.execute(query, data) # aquí execute está pillando query y reemplazada los valores en ? de VALUES para reemplazarlos por lo que hay guardado en la tupla de data
         conexion.close()

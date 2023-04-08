@@ -10,4 +10,6 @@ class Transactions:
         )
         return transactions
     
+    #purchase tiene los dadtos guardados desde controller purchase
+    
        
