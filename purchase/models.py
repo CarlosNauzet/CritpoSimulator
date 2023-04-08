@@ -34,6 +34,8 @@ class Purchase:
         return self.currency_origin_qty / self.currency_dest_qty
 
     def save(self):
+        # call DB MANAGER 
+        # db_manager.insert_query(self.currency_origin,self.currency_dest, sef.date ....)
         ...
 
 
