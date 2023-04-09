@@ -89,3 +89,15 @@ class CoinApi:
             raise Exception(
                 f'Error {response.status_code} {response.reason} al consultar la API'
             )
+
+
+class Transactions:
+
+    def get_all(self):
+        db_manager = DBManager()
+        transactions = db_manager.querySQL(
+            'SELECT id, date, time, _from, qty, _to, from_qty, pu FROM transactions'
+        )
+        return transactions
+
+    # purchase tiene los dadtos guardados desde controller purchase

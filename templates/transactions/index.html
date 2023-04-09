@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+
+<section class="section-transactions">
+  <button id="recharge-button">Reload</button>
+  <table class="paper">
+    <thead>
+      <tr>
+        <th class="table-title">ID</th>
+        <th class="table-title">Date</th>
+        <th class="table-title">Time</th>
+        <th class="table-title">From</th>
+        <th class="table-title">Quantity</th>
+        <th class="table-title">To</th>
+        <th class="table-title">From Quantity</th>
+        <th class="table-title">Purchased Units</th>
+      </tr>
+    </thead>
+    <tbody id="cuerpo-tabla">
+      {% for transaction in transactions %}
+      <tr>
+        <td>{{transaction.id}}</td>
+        <td>{{transaction.time}}</td>
+        <td>{{transaction.date}}</td>
+        <td>{{transaction._from}}</td>
+        <td>{{transaction.qty}}</td>
+        <td>{{transaction._to}}</td>
+        <td>{{transaction.from_qty}}</td>
+        <td>{{transaction.pu}}</td>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</section>
+{% endblock content %}

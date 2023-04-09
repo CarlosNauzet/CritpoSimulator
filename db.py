@@ -17,7 +17,7 @@ class DBManager:
         cursor = conexion.cursor()
         # Ejecutar la consulta SQL sobre ese cursor
         cursor.execute(consulta)
-        cursor.fetchall        # Tratar los datos
+        # Tratar los datos
         # obtener los datos
         rows = cursor.fetchall()
 
@@ -43,4 +43,5 @@ class DBManager:
         conexion = sqlite3.connect(self.path) 
         cursor = conexion.cursor() 
         cursor.execute(query, data) # aquí execute está pillando query y reemplazada los valores en ? de VALUES para reemplazarlos por lo que hay guardado en la tupla de data
+        conexion.commit()
         conexion.close()

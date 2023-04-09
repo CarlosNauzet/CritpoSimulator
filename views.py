@@ -1,14 +1,15 @@
 from flask import Blueprint, render_template, request
-from purchase.models import Purchase, CalculatePurchase
-router = Blueprint('purchase', __name__, template_folder='views')
+from models import Purchase, CalculatePurchase, Transactions
+
+router = Blueprint('views', __name__)
 
 
-@router.route('/', methods=['GET'])
-def index():
-    return render_template('purchase.html')
+@router.route('/purchase', methods=['GET'])
+def purchase():
+    return render_template('purchase/index.html')
 
 
-@router.route('/calculate', methods=['POST'])
+@router.route('/purchase/calculate', methods=['POST'])
 def calculate_purchase():
     data = request.form
 
@@ -28,10 +29,10 @@ def calculate_purchase():
         'pu': purchase_calculator.get_price_unit()
     }
 
-    return render_template('calculated.html', data=form_data)
+    return render_template('purchase/calculated.html', data=form_data)
 
 
-@router.route('/', methods=['POST'])
+@router.route('/purchase', methods=['POST'])
 def do_purchase():
     data = request.form
     purchase = Purchase(
@@ -44,3 +45,9 @@ def do_purchase():
     purchase.save()
 
     return "Compra realizada"
+
+
+@router.route('/', methods=['GET'])
+def index():
+    transactions = Transactions()
+    return render_template('transactions/index.html', transactions=transactions.get_all())
