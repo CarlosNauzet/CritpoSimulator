@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from models import Purchase, CalculatePurchase, Transactions
 
 router = Blueprint('views', __name__)
@@ -44,7 +44,7 @@ def do_purchase():
     )
     purchase.save()
 
-    return "Compra realizada"
+    return redirect(f"/?fromPurchase=true", code=302)
 
 
 @router.route('/', methods=['GET'])

@@ -100,4 +100,60 @@ class Transactions:
         )
         return transactions
 
+    def get_transacions_from_with_origin_currency(self, currency):
+        db_manager = DBManager()
+        return db_manager.querySQL(
+            f"""
+            
+            SELECT  _from, qty, _to, from_qty FROM transactions WHERE _from = "{currency}" 
+            
+            """
+        )
+
+    def get_transacions_from_with_dest_currency(self, currency):
+        db_manager = DBManager()
+        return db_manager.querySQL(
+            f"""
+            
+            SELECT  _from, qty, _to, from_qty FROM transactions WHERE _to = "{currency}" 
+            
+            """
+        )
+
+
+class Status:
+
+    def get(self):
+        total_eur = self.get_currency_status('EUR')
+        all_currency = ['BTC','ETHC']
+
+        for currency in all_currency:
+            status = self.get_currency_status(currency)
+            total = 0
+
+
+        return total_eur - total
+
+    def get_currency_status(currency):
+
+        transactions = Transactions()
+        transactions_origin = transactions.get_transacions_from_with_origin_currency(
+            currency
+        )
+        transactions_dest = transactions.get_transacions_from_with_dest_currency(
+            currency
+        )
+
+        total_to_qty = sum([
+            transaction['qty']
+            for transaction in transactions_origin
+        ])
+
+        total_from_qty = sum([
+            transaction['from_qty']
+            for transaction in transactions_dest
+        ])
+
+        return total_to_qty - total_from_qty
+
     # purchase tiene los dadtos guardados desde controller purchase
