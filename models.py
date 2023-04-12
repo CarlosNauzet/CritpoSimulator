@@ -100,7 +100,7 @@ class Transactions:
         )
         return transactions
 
-    def get_transacions_from_with_origin_currency(self, currency):
+    def get_transacions_with_from_currency(self, currency):
         db_manager = DBManager()
         return db_manager.querySQL(
             f"""
@@ -110,7 +110,7 @@ class Transactions:
             """
         )
 
-    def get_transacions_from_with_dest_currency(self, currency):
+    def get_transacions_with_to_currency(self, currency):
         db_manager = DBManager()
         return db_manager.querySQL(
             f"""
@@ -120,40 +120,38 @@ class Transactions:
             """
         )
 
+    def get_currency_balance(self, currency):
+        transactions_from = self.get_transacions_with_from_currency(
+            currency
+        )
+
+        transactions_to = self.get_transacions_with_to_currency(
+            currency
+        )
+
+        total_from_qty = sum([
+            transaction['from_qty']
+            for transaction in transactions_from
+        ])
+
+        total_to_qty = sum([
+            transaction['qty']
+            for transaction in transactions_to
+        ])
+
+        return total_to_qty - total_from_qty
+
 
 class Status:
 
     def get(self):
         total_eur = self.get_currency_status('EUR')
-        all_currency = ['BTC','ETHC']
+        all_currency = ['BTC', 'ETHC']
 
         for currency in all_currency:
             status = self.get_currency_status(currency)
             total = 0
 
-
         return total_eur - total
-
-    def get_currency_status(currency):
-
-        transactions = Transactions()
-        transactions_origin = transactions.get_transacions_from_with_origin_currency(
-            currency
-        )
-        transactions_dest = transactions.get_transacions_from_with_dest_currency(
-            currency
-        )
-
-        total_to_qty = sum([
-            transaction['qty']
-            for transaction in transactions_origin
-        ])
-
-        total_from_qty = sum([
-            transaction['from_qty']
-            for transaction in transactions_dest
-        ])
-
-        return total_to_qty - total_from_qty
 
     # purchase tiene los dadtos guardados desde controller purchase
