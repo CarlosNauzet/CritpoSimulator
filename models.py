@@ -72,7 +72,6 @@ class Purchase:
 class CoinApi:
 
     def __init__(self):
-        self.cambio = 0.0
         self.api_url = 'https://rest.coinapi.io'
         self.endpoint = '/v1/exchangerate'
 
@@ -141,17 +140,55 @@ class Transactions:
 
         return total_to_qty - total_from_qty
 
+    def get_initial_euros_investment(self):
+        transactions_from = self.get_transacions_with_from_currency(
+            'EUR'
+        )
+
+        total_from_qty = sum([
+            transaction['from_qty']
+            for transaction in transactions_from
+        ])
+
+        return total_from_qty
+
 
 class Status:
 
-    def get(self):
-        total_eur = self.get_currency_status('EUR')
-        all_currency = ['BTC', 'ETHC']
+    def get_balance_by_currency(self):
 
-        for currency in all_currency:
-            status = self.get_currency_status(currency)
-            total = 0
+        transactions = Transactions()
 
-        return total_eur - total
+        all_currencies = [
+            'EUR',
+            'BTC',
+            'ETH',
+            'USDT',
+            'ADA',
+            'SOL',
+            'XRP',
+            'DOT',
+            'DOGE',
+            'SHIB'
+        ]
 
-    # purchase tiene los dadtos guardados desde controller purchase
+        balance_by_currency = {}
+
+        for currency in all_currencies:
+            balance = transactions.get_currency_balance(currency)
+            if balance > 0:
+                balance_by_currency[currency] = balance
+
+        return balance_by_currency
+
+    def get_current_euro_invesment_amount(self, balance_by_currency):
+        coin_api = CoinApi()
+        total_euros_investment = 0
+
+        for currency, balance in balance_by_currency.items():
+            exchange = coin_api.get_exchange_rate(currency, 'EUR')
+            euros_amount = exchange['rate'] * balance
+            # es una abreviacion de total = total + euros (total+=euros)
+            total_euros_investment += euros_amount
+
+        return total_euros_investment

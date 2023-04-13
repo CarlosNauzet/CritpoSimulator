@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect
-from models import Purchase, CalculatePurchase, Transactions
+from models import Purchase, CalculatePurchase, Transactions, Status
 
 router = Blueprint('views', __name__)
 
 
 @router.route('/purchase', methods=['GET'])
 def purchase():
-    return render_template('purchase/index.html')
+    return render_template('purchase/index.html', data={})
 
 
 @router.route('/purchase/calculate', methods=['POST'])
@@ -18,6 +18,17 @@ def calculate_purchase():
         currency_dest=data['to'],
         currency_origin_qty=float(data['from_qty'])
     )
+    transactions = Transactions()
+
+    balance = transactions.get_currency_balance(data['from'])
+    if data['from'] != 'EUR' and balance < float(data['from_qty']):
+        form_data = {
+            'from': data['from'],
+            'to': data['to'],
+            'from_qty': data['from_qty'],
+            'error': f"You don't have enough quantity of {data['from']}. Available {balance}"
+        }
+        return render_template('purchase/index.html', data=form_data)
 
     purchase_calculator.calculate()
 
@@ -51,3 +62,22 @@ def do_purchase():
 def index():
     transactions = Transactions()
     return render_template('transactions/index.html', transactions=transactions.get_all())
+
+
+@router.route('/status', methods=['GET'])
+def status():
+    status = Status()
+    transactions = Transactions()
+
+    balance_by_currency = status.get_balance_by_currency()
+    total_euro_investment_amount = status.get_current_euro_invesment_amount(
+        balance_by_currency
+    )
+    initial_euro_investment = transactions.get_initial_euros_investment()
+
+    return render_template(
+        'status/index.html',
+        data=balance_by_currency,
+        total_euro_investment=total_euro_investment_amount,
+        initial_euro_investment=initial_euro_investment
+    )

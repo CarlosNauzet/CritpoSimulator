@@ -14,7 +14,9 @@
     {% include 'components/header.html' %} {% include 'components/navbar.html'
     %}
 
-    <main>{% block content %} {% endblock content %}</main>
+    <main>{% block content %} {% endblock content %}
+          {% block status %} {% endblock status %}
+    </main>
 
     {% include 'components/footer.html' %}
   </body>
