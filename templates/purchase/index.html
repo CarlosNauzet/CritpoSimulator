@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+  {% block purchase_index %}
+
+  <div class="container text-center mt-10">
+    <h1>Make your purchase</h1>
+  </div>
+
+  <div class="container text-center">
+  
+    <form action="/purchase/calculate" method="post">
+      <div>From
+        
+        <select name="from" value="{{data['from']}}">
+          <option value="EUR" selected>EUR</option>
+          <option value="BTC">BTC</option>
+          <option value="ETH">ETH</option>
+          <option value="USDT">USDT</option>
+          <option value="ADA">ADA</option>
+          <option value="SOL">SOL</option>
+          <option value="XRP">XRP</option>
+          <option value="DOT">DOT</option>
+          <option value="DOGE">DOGE</option>
+          <option value="SHIB">SHIB</option>
+        </select>
+    
+      </div>
+      <div>To
+        <select name="to" value="{{data['to']}}">
+          <option value="EUR">EUR</option>
+          <option value="BTC">BTC</option>
+          <option value="ETH">ETH</option>
+          <option value="USDT">USDT</option>
+          <option value="ADA">ADA</option>
+          <option value="SOL">SOL</option>
+          <option value="XRP">XRP</option>
+          <option value="DOT">DOT</option>
+          <option value="DOGE">DOGE</option>
+          <option value="SHIB">SHIB</option>
+        </select>    
+      <div>
+        Qty<input type="number" name="from_qty" value="{{data['from_qty']}}" />
+      </div>
+      <div><button class="btn btn-outline-primary" type="submit" name="calculate">Calcular</button></div>
+    </form>
+    {%if data['error'] %}
+    <div>{{data['error']}}</div>
+
+  </div>
+    {% endif %}
+
+    {% endblock purchase_index %}

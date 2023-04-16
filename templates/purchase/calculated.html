@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block purchase_calculated %}
+
+<div class="container text-center">
+  <h1>Are you sure?</h1>
+</div>
+
+<div class="container text-center">
+  <form action="/purchase" method="post">
+    <div>
+      From<input type="text" readonly name="from" value="{{data.from}}" />
+    </div>
+    <div>To<input type="text" readonly name="to" value="{{data['to']}}" /></div>
+    <div>
+      Qty<input
+        type="number"
+        readonly
+        name="from_qty"
+        value="{{data.from_qty}}"
+      />
+    </div>
+    <div>
+      To Qty<input type="number" readonly name="to_qty" value="{{data.qty}}" />
+    </div>
+    <div>PU <input type="number" readonly name="pu" value="{{data.pu}}" /></div>
+    <div>
+      <button class="btn btn-outline-primary" type="submit">Buy now</button>
+    </div>
+  </form>
+</div>
+
+{% endblock purchase_calculated %}
