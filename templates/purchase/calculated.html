@@ -1,39 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <form action="/purchase" method="post">
-      <div>
-        From<input type="text" readonly name="from" value="{{data.from}}" />
-      </div>
-      <div>
-        To<input type="text" readonly name="to" value="{{data['to']}}" />
-      </div>
-      <div>
-        Qty<input
-          type="number"
-          readonly
-          name="from_qty"
-          value="{{data.from_qty}}"
-        />
-      </div>
-      <div>
-        To Qty<input
-          type="number"
-          readonly
-          name="to_qty"
-          value="{{data.qty}}"
-        />
-      </div>
-      <div>
-        PU <input type="number" readonly name="pu" value="{{data.pu}}" />
-      </div>
-      <div><button type="submit">Comprar</button></div>
-    </form>
-  </body>
-</html>
+{% extends 'base.html' %} {% block purchase_calculated %}
+
+<form action="/purchase" method="post">
+  <div>
+    From<input type="text" readonly name="from" value="{{data.from}}" />
+  </div>
+  <div>To<input type="text" readonly name="to" value="{{data['to']}}" /></div>
+  <div>
+    Qty<input
+      type="number"
+      readonly
+      name="from_qty"
+      value="{{data.from_qty}}"
+    />
+  </div>
+  <div>
+    To Qty<input type="number" readonly name="to_qty" value="{{data.qty}}" />
+  </div>
+  <div>PU <input type="number" readonly name="pu" value="{{data.pu}}" /></div>
+  <div><button type="submit">Comprar</button></div>
+</form>
+
+{% endblock purchase_calculated %}

@@ -14,8 +14,10 @@
     {% include 'components/header.html' %} {% include 'components/navbar.html'
     %}
 
-    <main>{% block content %} {% endblock content %}
-          {% block status %} {% endblock status %}
+    <main>
+      {% block content %} {% endblock content %} {% block status %} {% endblock
+      status %} {% block purchase_index %} {% endblock purchase_index %} {%
+      block purchase_calculated %} {% endblock purchase_calculated %}
     </main>
 
     {% include 'components/footer.html' %}

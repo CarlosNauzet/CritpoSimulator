@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+  {% block purchase_index %}
+  
     <form action="/purchase/calculate" method="post">
       <div>From
         
@@ -45,5 +40,5 @@
     {%if data['error'] %}
     <div>{{data['error']}}</div>
     {% endif %}
-  </body>
-</html>
+
+    {% endblock purchase_index %}
