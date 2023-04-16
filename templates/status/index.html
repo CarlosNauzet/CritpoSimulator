@@ -3,21 +3,27 @@
   <h1>Status dashboard</h1>
 </div>
 
-<!--DEJA LAS DEMAS FILAS HECHAS-->
+
 <div class="container pt-5"> 
   <div class="row">
-    <div class="col">
+    <div class="col pt-5">
       <div class="row">
         <div class="col"><h4>Initial investent</h4></div>
         <div class="col">  {{"%.2f €"|format(initial_euro_investment) }} </div>
       </div> 
-      <h4>Total investent</h4>
-      {{"%.2f €"|format(total_euro_investment)}}
+
+      <div class="row">
+        <div class="col"><h4>Total Investment</h4></div>
+        <div class="col">  {{"%.2f €"|format(total_euro_investment)}} </div>
+      </div>
+
+      <div class="row">
+        <div class="col"><h4>Profit margin</h4></div>
+        <div class="col">  {{"%.2f €"|format(total_euro_investment)}} </div>
+      </div>
 
 
-      
-      <h4>Profit margin</h4>
-      {{"%.2f €"|format(total_euro_investment-initial_euro_investment)}}
+    
     </div>
 
     <div class="col">
