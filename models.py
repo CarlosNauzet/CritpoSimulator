@@ -6,7 +6,7 @@ from db import DBManager
 API_KEY = "F8DD52B3-53AC-4AE0-818B-E2C62A964EE3"
 
 
-class CalculatePurchase:
+class CalculatePurchase: # me explicas la lógica detrás de instanciar los atributos tras el self y luego "volveros a instanciar" con el mismo nombre?
 
     def __init__(
         self,
@@ -22,7 +22,7 @@ class CalculatePurchase:
     def calculate(self):
         coin_api = CoinApi()
         exchange = coin_api.get_exchange_rate(
-            origin=self.currency_origin,
+            origin=self.currency_origin, # si aquí están como variables locales (origin & dest) porque al salir del () las llamamos otra vez con el self?
             dest=self.currency_dest
         )
         self.currency_dest_qty = self.currency_origin_qty * exchange['rate']
@@ -55,7 +55,7 @@ class Purchase:
             INSERT INTO transactions (date, time, _from, from_qty, _to, qty, pu) 
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """
-        data = (
+        data = ( #
             self.date,
             self.time,
             self.currency_origin,

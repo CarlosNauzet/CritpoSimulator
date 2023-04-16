@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
 from models import Purchase, CalculatePurchase, Transactions, Status
 
-router = Blueprint('views', __name__)
+router = Blueprint('views', __name__) #así enrutamos todas las views desde un mismo router? el "__name__" es lo que pilla como primer atributo ej:"/purchase")
 
 
 @router.route('/purchase', methods=['GET'])
@@ -11,7 +11,7 @@ def purchase():
 
 @router.route('/purchase/calculate', methods=['POST'])
 def calculate_purchase():
-    data = request.form
+    data = request.form # request.form : importa request que es un método importado el flask y le mete lo que hay en form desde /purchase/calculate?
 
     purchase_calculator = CalculatePurchase(
         currency_origin=data['from'],

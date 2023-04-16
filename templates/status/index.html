@@ -3,46 +3,47 @@
   <h1>Status dashboard</h1>
 </div>
 
-
-<div class="container pt-5">
+<!--DEJA LAS DEMAS FILAS HECHAS-->
+<div class="container pt-5"> 
   <div class="row">
     <div class="col">
-      <h4>Initial investent</h4>
-      {{"%.2f €"|format(initial_euro_investment) }}
-    </div>
-    <div class="col">
+      <div class="row">
+        <div class="col"><h4>Initial investent</h4></div>
+        <div class="col">  {{"%.2f €"|format(initial_euro_investment) }} </div>
+      </div> 
       <h4>Total investent</h4>
       {{"%.2f €"|format(total_euro_investment)}}
-    </div>
 
-    <div class="col">
+
+      
       <h4>Profit margin</h4>
       {{"%.2f €"|format(total_euro_investment-initial_euro_investment)}}
     </div>
-  </div>
-</div>
 
-
-<div class="container text-center pt-5">
-  <div class="row">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Currency</th>
-          <th>Balance</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for key, value in data.items() %}
+    <div class="col">
+      <table class="table">
+        <thead>
           <tr>
-            <td>{{key}}</td>
-            <td>{{value}}</td>
+            <th>Currency</th>
+            <th>Balance</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  <div>
+        </thead>
+        <tbody>
+          {% for key, value in data.items() %}
+            <tr>
+              <td>{{key}}</td>
+              <td>{{value}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+
 </div>
+
 <div class="container">
 <a class="btn btn-outline-primary" href="./status">Reload</a>
 </div>
